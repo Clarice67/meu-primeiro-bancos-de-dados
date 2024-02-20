@@ -10,53 +10,55 @@ app.get("/", (req, res) => {
    res.send(" A minha primeira API")
 })
 
-app.post("/usuario", async (req, res) => {
+app.post("/formulario", async (req, res) => {
    const nome = req.body.nome
-   const email = req.body.email
-   const telefone = req.body.telefone
+   const autor = req.body.autor
+   const tituloLivro = req.body.tituloLivro
+   const genero = req.body.genero
 
    try {
-      const docRef = await firestore.addDoc(firestore.collection(db, 'usuarios'), {
+      const docRef = await firestore.addDoc(firestore.collection(db, 'formulario'), {
          nome: nome,
-         email: email,
-         telefone: telefone,
+         autor: autor,
+         tituloLivro: tituloLivro,
+         genero: genero,
       })
 
-      res.send("Usuario adicionado com sucesso:" + docRef.id);
+      res.send("Resposta enviada com sucesso:" + docRef.id);
    } catch (error) {
       console.log(e)
       res.status(500).send(e)
    }
 })
 
-app.get("/listarUsuarios", async (req, res) => {
+app.get("/listarFormulario", async (req, res) => {
    try {
-      const usuarios = await firestore.getDocs(firestore.collection(db, "usuarios"))
+      const formulario = await firestore.getDocs(firestore.collection(db, "formulario"))
 
-      const usuariosLista = usuarios.docs.map((doc) => ({
+      const formularioLista = formulario.docs.map((doc) => ({
          id: doc.id,
          ...doc.data(),
       }))
 
 
-console.log(usuariosLista);
+console.log(formularioLista);
 
       
-     res.send(usuariosLista)
+     res.send(formularioLista);
 
    } catch (e) {
-      console.log(" Erro ao Listar usuários:" + e)
+      console.log(" Erro ao Listar formulario:" + e)
       res.status(500).send(e)
    }
 }
 );
 
-app.put("/atualizarUsuario/:id" , async ( req, res) => {
+app.put("/listarFormulario/:id" , async ( req, res) => {
    const id = req.params.id 
    const nome = req.body.nome
 
    try {
-      await firestore.updateDoc(firestore.doc(db, "usuarios", id), {
+      await firestore.updateDoc(firestore.doc(db, "Formulario", id), {
          nome: nome,
       })
       res.send("Usuário atualizado com sucesso!")
