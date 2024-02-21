@@ -2,9 +2,15 @@ import express from "express"
 import { db, firestore } from '../bancos-de-dados/firebase';
 import e from "express";
 import { Firestore } from "firebase/firestore";
-
+import cors from "cors"
 const app = express()
 app.use(express.json())
+app.use(express.urlencoded({ extended: true}));
+app.use(cors({
+   origin: "*",
+   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+}))
+   
 
 app.get("/", (req, res) => {
    res.send(" A minha primeira API")
