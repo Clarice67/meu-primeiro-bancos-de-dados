@@ -59,35 +59,35 @@ console.log(formularioLista);
 }
 );
 
-app.put("/listarFormulario/:id" , async ( req, res) => {
+app.put("/atualizarFormulario/:id" , async ( req, res) => {
    const id = req.params.id 
    const nome = req.body.nome
 
    try {
-      await firestore.updateDoc(firestore.doc(db, "Formulario", id), {
+      await firestore.updateDoc(firestore.doc(db, "formulario", id), {
          nome: nome,
       })
-      res.send("Usuário atualizado com sucesso!")
+      res.send("Formulario atualizado com sucesso!")
    } catch (e) {
-     console.log(" Erro ao atualizar usuário:" + e)
+     console.log(" Erro ao atualizar formulário:" + e)
 
-     res.status(500).send( "Erro ao atualizar usuários:" + e)
+     res.status(500).send( "Erro ao atualizar formulário:" + e)
       
    }
 
 })
 
-app.delete("/deletarUsuario/:id", async (req, res) => {
+app.delete("/deletarFormulario/:id", async (req, res) => {
    const id = req.params.id
 
    try {
-      await firestore.deleteDoc(firestore.doc(db, "usuarios", id))
+      await firestore.deleteDoc(firestore.doc(db, "formulario", id))
 
-     res.send("Usuário deletado com sucesso!")
+     res.send("formulário deletado com sucesso!")
    } catch (e) {
-     console.log("Erro ao deletar usuario: " + e)
+     console.log("Erro ao deletar formulário: " + e)
 
-     res.status(500).send( "Erro ao deletar usuario:" + e)
+     res.status(500).send( "Erro ao deletar formulário:" + e)
    }
 })
 
